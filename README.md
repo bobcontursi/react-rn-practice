@@ -9,7 +9,7 @@ A small, spec-driven practice project for hands-on React, React Native, and CI/C
 
 ## Running locally
 
-- Web app: instructions added in M2, once the app is scaffolded.
+- Web app: `cd web && npm install && npm run dev`
 - Mobile app: instructions added in M3, once the app is scaffolded.
 
 ## Branch model
