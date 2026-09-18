@@ -10,7 +10,7 @@ A small, spec-driven practice project for hands-on React, React Native, and CI/C
 ## Running locally
 
 - Web app: `cd web && npm install && npm run dev`
-- Mobile app: instructions added in M3, once the app is scaffolded.
+- Mobile app: `cd mobile && npm install && npx expo start` — press `i` for the iOS Simulator (requires full Xcode) or scan the QR code with Expo Go on your phone.
 
 ## Branch model
 
