@@ -19,3 +19,13 @@ A small, spec-driven practice project for hands-on React, React Native, and CI/C
 - `main` — production. Only updated via a reviewed PR from `dev`.
 - `dev` — integration branch. All feature branches target this.
 - `feature/<slug>` — cut from `dev` for every change, however small; merged back within a day (see the spec's Branching Strategy section).
+
+## Deployment (web)
+
+The web app deploys to Vercel with two environments: Production (from `main`) and Preview (from every other branch, including `dev`).
+
+1. Push this repo to GitHub.
+2. In Vercel: "Add New Project" → import the repo → set **Root Directory** to `web` (this is a multi-app repo, not a single-package one).
+3. Confirm **Production Branch** (Settings → Git) is `main`.
+4. In **Environment Variables**, set `VITE_APP_ENV` scoped to Production = `production` and Preview = `development` — a standard `vite build` always defaults to production mode regardless of branch, so this dashboard step is what makes the footer's environment label actually differ between the two deployed environments.
+5. Recommended: enable branch protection on `main` in GitHub Settings → Branches.

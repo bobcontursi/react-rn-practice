@@ -13,6 +13,9 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
+      <footer data-testid="env-label">
+        Environment: {import.meta.env.VITE_APP_ENV ?? import.meta.env.MODE}
+      </footer>
     </>
   )
 }
