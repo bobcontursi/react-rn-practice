@@ -25,13 +25,15 @@ Two real Vercel environments for the web app (Production from `main`, Preview fr
 - `web/vercel.json` — SPA rewrite (`/(.*) → /index.html`) so client-side routes survive a direct link/refresh on Vercel.
 - README "Deployment" section (see below).
 
-## Deployment steps (manual — this session can't perform these)
+## Deployment steps
 
-1. Push to GitHub once you provide the remote URL.
-2. In Vercel: "Add New Project" → import the repo → **set Root Directory to `web`** (this is a multi-app repo — web/mobile/flags-server are siblings, not one package at the repo root).
-3. Confirm Vercel's "Production Branch" (Settings → Git) is `main` — that alone makes `main` deploy to Production and every other branch, including `dev`, deploy as a Preview automatically.
-4. In Vercel's Environment Variables settings, set `VITE_APP_ENV` scoped to **Production** = `production` and **Preview** = `development`. Necessary because a standard `vite build` always defaults to production mode regardless of which branch triggered it — the committed `.env.*` files give correct local dev/build parity, but without this dashboard step, both Vercel environments would show "production" in the footer.
-5. (Recommended, deferred from M1): enable branch protection on `main` in GitHub Settings → Branches, now that a remote exists.
+1. ~~Push to GitHub once you provide the remote URL.~~ **Done** — repo is `bobcontursi/react-rn-practice` (public; switched from private since branch protection requires it on the free tier), `main`/`dev` pushed.
+2. ~~In Vercel: "Add New Project" → import the repo → set Root Directory to `web`~~ **Done** — found under Settings → Build and Deployment rather than General in this account's UI.
+3. **Production Branch**: no action needed — Vercel defaults this to the GitHub repo's default branch (`main`), confirmed already set correctly; there's no separate override control on this account's plan.
+4. ~~Set `VITE_APP_ENV` scoped to Production/Preview~~ **Done** — two separate Config-type rows added.
+5. ~~Enable branch protection on `main`~~ **Done** — via `gh api`: PR required (0 required approvals, since GitHub won't allow self-approval on a solo repo), `enforce_admins: true` (applies to the repo owner too, no bypass — a deliberate choice, not the default), force-push/deletion blocked. No required status checks yet (that's M6's CI workflow to add).
+
+**Still open**: confirming the Preview deployment (from `dev`) actually shows "Environment: development" in its footer — Production (from `main`) is expected to 404 right now since `main` still only contains `PRACTICE-PROJECT-SPEC.md` (all milestone work has deliberately stayed on `dev`; the real `dev`→`main` merge is M6/M7's job, not this one's). No Preview deployment had run yet since `dev` was pushed before the Vercel project existed — this commit is what triggers the first one.
 
 ## Verification performed
 
@@ -52,6 +54,6 @@ Two real Vercel environments for the web app (Production from `main`, Preview fr
 - [x] Footer wired, both dev and prod checks passed with the tightened (non-false-positive) verification approach.
 - [x] `vercel.json` SPA rewrite added.
 - [x] README "Deployment" section written.
-- [ ] GitHub remote pushed.
-- [ ] Vercel project created, Root Directory + Production Branch + per-environment `VITE_APP_ENV` configured.
-- [ ] Both live URLs confirmed showing the correct environment label.
+- [x] GitHub remote pushed (public repo, branch protection enabled on `main`).
+- [x] Vercel project created, Root Directory + per-environment `VITE_APP_ENV` configured.
+- [ ] Preview deployment (from `dev`) confirmed showing "Environment: development". Production is expected to 404 until M6/M7's real `dev`→`main` merge — not a bug.
