@@ -33,7 +33,13 @@ Two real Vercel environments for the web app (Production from `main`, Preview fr
 4. ~~Set `VITE_APP_ENV` scoped to Production/Preview~~ **Done** — two separate Config-type rows added.
 5. ~~Enable branch protection on `main`~~ **Done** — via `gh api`: PR required (0 required approvals, since GitHub won't allow self-approval on a solo repo), `enforce_admins: true` (applies to the repo owner too, no bypass — a deliberate choice, not the default), force-push/deletion blocked. No required status checks yet (that's M6's CI workflow to add).
 
-**Still open**: confirming the Preview deployment (from `dev`) actually shows "Environment: development" in its footer — Production (from `main`) is expected to 404 right now since `main` still only contains `PRACTICE-PROJECT-SPEC.md` (all milestone work has deliberately stayed on `dev`; the real `dev`→`main` merge is M6/M7's job, not this one's). No Preview deployment had run yet since `dev` was pushed before the Vercel project existed — this commit is what triggers the first one.
+**Still open**: confirming the Preview deployment (from `dev`) actually shows "Environment: development" in its footer — Production (from `main`) is expected to 404 right now since `main` still only contains `PRACTICE-PROJECT-SPEC.md` (all milestone work has deliberately stayed on `dev`; the real `dev`→`main` merge is M6/M7's job, not this one's).
+
+**Vercel account/project turned out to be genuinely flaky, not a config mistake**, worth recording since it cost real time:
+- The Root Directory picker in the "New Project" import wizard couldn't drill into subdirectories (showed only the repo root as a selectable option) — reproduced twice, across two separate project imports, so it's a real product limitation for this account, not user error.
+- The first project's build Output (once it finally ran) showed raw repo folders plus phantom `mobile`/`web`/`middleware` entries instead of a compiled `index.html`/`assets/` — meaning Root Directory silently wasn't taking effect on the real build despite showing correctly in Settings. That project was deleted and re-imported rather than debugged further.
+- On the fresh project, Vercel's automatic initial deployment (fired the instant the project is imported, before any settings can be touched) understandably failed against `main` — no `package.json` exists there yet.
+- After manually setting Root Directory to `web` in the new project's settings, a manually-triggered "Create Deployment" *still* built `main` instead of `dev` (confirmed via the build log's `Branch: main` line) — the manual trigger UI wasn't reliably respecting the branch selection. This commit itself is the workaround: a real push to `dev` is unambiguous about which ref gets built, unlike the manual trigger.
 
 ## Verification performed
 
