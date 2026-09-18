@@ -8,6 +8,7 @@ export default function Layout() {
           Home
         </NavLink>
         <NavLink to="/about">About</NavLink>
+        <NavLink to="/flags">Flags</NavLink>
       </nav>
       <main>
         <Outlet />

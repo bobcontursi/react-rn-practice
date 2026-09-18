@@ -6,11 +6,13 @@ A small, spec-driven practice project for hands-on React, React Native, and CI/C
 
 - `/web` — Vite + React + TypeScript app (added in M2).
 - `/mobile` — Expo (React Native) app (added in M3).
+- `/flags-server` — tiny local Node server backing the feature-flag mechanism (added in M4).
 
 ## Running locally
 
+- Feature-flag server (needed for the flags toggle page and either app's flag-driven badge): `cd flags-server && npm start` — listens on `http://localhost:4000`.
 - Web app: `cd web && npm install && npm run dev`
-- Mobile app: `cd mobile && npm install && npx expo start` — press `i` for the iOS Simulator (requires full Xcode) or scan the QR code with Expo Go on your phone.
+- Mobile app: `cd mobile && npm install && npx expo start` — press `i` for the iOS Simulator (requires full Xcode) or scan the QR code with Expo Go on your phone. To reach the flags-server from a physical device, copy `mobile/.env.example` to `mobile/.env` and set `EXPO_PUBLIC_FLAGS_SERVER_URL` to your machine's LAN IP (not `localhost` — that means the phone itself).
 
 ## Branch model
 

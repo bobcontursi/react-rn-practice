@@ -1,14 +1,27 @@
+import { useEffect, useState } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { RootStackParamList } from '../navigation/types'
 import { items } from '../data/items'
+import { getFlags } from '../flags'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
 
 export default function HomeScreen({ navigation }: Props) {
+  const [betaBadge, setBetaBadge] = useState(false)
+
+  useEffect(() => {
+    getFlags()
+      .then((flags) => setBetaBadge(Boolean(flags.betaBadge)))
+      .catch(() => setBetaBadge(false))
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>React / React Native Practice Build</Text>
+      <Text style={styles.title}>
+        React / React Native Practice Build
+        {betaBadge ? ' 🔵 Beta' : ''}
+      </Text>
       <Text style={styles.body}>
         A small, spec-driven practice project for hands-on React, React Native, and CI/CD
         skill-building.
