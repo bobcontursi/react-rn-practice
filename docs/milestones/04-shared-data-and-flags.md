@@ -29,12 +29,12 @@ Two things the spec bundles into one milestone: a decision on how `web/` and `mo
 - `web/`: `npm run build` — clean. With `flags-server` running, `npm run preview` + `curl` on `/` and `/flags` both returned `200`.
 - `mobile/`: `npx tsc --noEmit` — clean. Metro bundle smoke test run on port **8090** (not 8081 — your own `npx expo start` session from M3's manual verification was still running on 8081 and was deliberately left alone) via a direct bundle request; `200` with the new flags code present in the bundle. Smoke-test process killed afterward, port 8090 confirmed free; your 8081 session confirmed untouched throughout.
 
-## Verification NOT performed by this session
+## Verification — confirmed by you
 
-- ~~Actually flipping the flag in the browser at `/flags` and watching the Home badge appear.~~ **Confirmed by you** — web toggle → Home badge works end-to-end.
-- Setting `EXPO_PUBLIC_FLAGS_SERVER_URL` in `mobile/.env` to your machine's LAN IP and confirming the RN Home screen picks up the same flag over Expo Go — **still open**.
-  - **Order matters:** the flag is already toggled `true` from the web check above, so just (re)launch or reload the RN app — `HomeScreen.tsx` only fetches on mount, there's no polling.
-  - **If the RN badge never appears** even with the LAN IP set correctly, check iOS App Transport Security (blocks plain `http://`) before assuming the server's broken — Expo Go has historically been permissive here, so it's unlikely, but worth ruling out first. Either way the `try/catch` means it fails silently (no badge), not with a crash.
+- Web: toggle `betaBadge` at `/flags`, Home badge appears. Confirmed working end-to-end.
+- Mobile: `EXPO_PUBLIC_FLAGS_SERVER_URL` set to the LAN IP in `mobile/.env`, RN Home screen picked up the same flag over Expo Go and showed the badge. Confirmed working end-to-end.
+- **Root cause of the first "it's not working" report**: not a connectivity or ATS issue — the flag was simply toggled back to `false` on the server at the time of the mobile check, so neither app would have shown a badge regardless of platform. Diagnosed by querying `flags-server` directly (`curl http://192.168.86.184:4000/flags`) and seeing `{"betaBadge":false}`. Fixed by re-toggling the flag before reloading.
+- Along the way, added `console.log`/`console.warn` diagnostics to `mobile/src/flags.ts` and `HomeScreen.tsx` (the original `catch` swallowed fetch errors silently, which made this harder to diagnose than it needed to be) — landed as its own small commit/branch rather than folded silently into this spec.
 
 ## Definition of done
 
@@ -43,4 +43,4 @@ Two things the spec bundles into one milestone: a decision on how `web/` and `mo
 - [x] Mobile: flags client + Home badge wired, `tsc` clean, bundle smoke test clean.
 - [x] `mobile/.env` gitignore behavior verified with `git check-ignore`.
 - [x] README updated with flags-server + LAN-IP instructions.
-- [ ] **You've confirmed the flag toggle end-to-end**: web toggle → Home badge appears; and separately, RN Home badge appears via Expo Go with `EXPO_PUBLIC_FLAGS_SERVER_URL` set to your LAN IP.
+- [x] Flag toggle confirmed end-to-end on both web and mobile (Expo Go, LAN IP).
