@@ -21,10 +21,10 @@ The Expo (React Native) app under `/mobile`, porting the same three pages from t
 - Metro started non-interactively (`npx expo start`, backgrounded), then `curl`'d `http://localhost:8081/index.bundle?platform=ios&dev=true` directly to force a real compile — returned `200` with a fully bundled JS payload covering all three screens, no red-screen/bundling error.
 - Metro process explicitly killed afterward and port 8081 confirmed free (`lsof -ti:8081` empty) — no leftover background process to collide with your own `npx expo start` later.
 
-## Verification NOT performed (required to close this milestone)
+## Verification NOT performed by this session
 
-- **Actually running the app** — in the iOS Simulator (needs full Xcode; only Command Line Tools are present in this session, so `xcrun simctl` isn't available here) or via Expo Go on your own device (`npx expo start`, scan the QR code).
-- This is tracked as an open item below, not assumed. "TypeScript compiled and Metro bundled" and "I navigated the three screens on my phone/simulator" are different, separately-verified claims.
+- Running the app in the iOS Simulator or via Expo Go — no Simulator available here (only Command Line Tools, no full Xcode), so this was left for you to confirm directly.
+- **Confirmed by you**: verified end-to-end via Expo Go on your phone, all three screens navigable.
 
 ## Definition of done
 
@@ -34,4 +34,4 @@ The Expo (React Native) app under `/mobile`, porting the same three pages from t
 - [x] Three screens (Home, ItemDetail, About) with native-idiomatic components (`FlatList`, `Pressable`, `View`/`Text`).
 - [x] `tsc --noEmit` clean.
 - [x] Metro bundling smoke test passed; process torn down cleanly.
-- [ ] **You've run it on-device or in Simulator and clicked through all three screens.**
+- [x] Run on-device (Expo Go) and clicked through all three screens — confirmed by you.
