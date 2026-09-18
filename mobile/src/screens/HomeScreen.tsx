@@ -13,7 +13,10 @@ export default function HomeScreen({ navigation }: Props) {
   useEffect(() => {
     getFlags()
       .then((flags) => setBetaBadge(Boolean(flags.betaBadge)))
-      .catch(() => setBetaBadge(false))
+      .catch((error) => {
+        console.warn('Could not reach flags-server:', error)
+        setBetaBadge(false)
+      })
   }, [])
 
   return (
