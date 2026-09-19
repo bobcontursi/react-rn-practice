@@ -27,12 +27,12 @@ A Contact page (`web/src/pages/Contact.tsx`, a `/contact` route, and a nav link)
 
 ## Definition of done
 
-- [ ] `feature/contact-page` pushed, with `Contact.tsx`, the route, and the nav link.
-- [ ] Local `npm run build` passes.
-- [ ] PR into `dev` opened; `web-ci`, `mobile-ci`, and `flags-server-ci` all pass.
-- [ ] Review comment left on the email line and resolved.
-- [ ] PR merged into `dev`.
-- [ ] `dev` → `main` promotion merged; `deploy-prod.yml` ran and the production site serves `/contact`.
-- [ ] Release tagged.
-- [ ] `flags-server/flags.json` change never committed.
-- [ ] Reference doc of the full workflow written for later reuse.
+- [x] `feature/contact-page` pushed, with `Contact.tsx`, the route, and the nav link.
+- [x] Local `npm run build` passes.
+- [x] PR #2 into `dev` opened; `web-ci`, `mobile-ci`, and `flags-server-ci` all pass.
+- [x] Review comment left on the email line (fixed as a `mailto:` link in `597d9b5`) and resolved.
+- [x] PR #2 merged into `dev` (merge commit `5c731cb`).
+- [x] PR #3 (`dev` → `main`) merged as `ecf8f3e`; `deploy-prod.yml` ran successfully and the production site serves `/contact`.
+- [x] Release tagged `v0.7.0` on `main`.
+- [x] `flags-server/flags.json` change never committed.
+- [x] Reference doc of the full workflow written for later reuse: `docs/git-workflow-reference.md`.
