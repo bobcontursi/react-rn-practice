@@ -3,7 +3,8 @@ export default function Contact() {
     <div>
       <h1>Contact</h1>
       <p>
-        Questions about this project? Reach out at hello@example.com.
+        Questions about this project? Reach out at{' '}
+        <a href="mailto:hello@example.com">hello@example.com</a>.
       </p>
     </div>
   )
