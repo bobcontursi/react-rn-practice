@@ -1,0 +1,24 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - working-directory: web
+        run: npm ci
+      - working-directory: web
+        run: npm run build
+      - name: Trigger Vercel deploy hook
+        run: curl -sf -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
