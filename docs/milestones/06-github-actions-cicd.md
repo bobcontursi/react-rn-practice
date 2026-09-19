@@ -30,7 +30,11 @@ Two GitHub Actions workflows: `ci.yml` (a PR gate for `dev`/`main`) and `deploy-
 ## Definition of done
 
 - [x] `ci.yml` and `deploy-prod.yml` written and passing.
-- [x] Bootstrap push confirmed both workflows run successfully on real GitHub infrastructure.
-- [x] Temporary `dev` trigger removed from `deploy-prod.yml` without re-firing it.
-- [x] Branch protection with required status checks added to both `dev` and `main`.
-- [ ] Real production deploy outcome (does `main` actually serve the app correctly) — deliberately not this milestone's job; that's M7's, once `dev`→`main` genuinely merges.
+- [x] Bootstrap push confirmed both workflows run successfully on real GitHub infrastructure — `ci.yml`'s three jobs all green, `deploy-prod.yml`'s build passed and its curl step got back a real Vercel job-queued response.
+- [x] Temporary `dev` trigger removed from `deploy-prod.yml`; confirmed the removal push did *not* re-fire it (only `ci.yml` ran again).
+- [x] Branch protection with required status checks (`web-ci`, `mobile-ci`, `flags-server-ci`) added to both `dev` and `main`, `enforce_admins: true` on both.
+- [x] Real production deploy outcome (does `main` actually serve the app correctly) — deliberately not this milestone's job; that's M7's, once `dev`→`main` genuinely merges.
+
+## A real consequence worth recording
+
+Protecting `dev` means direct pushes to it are now blocked — for anyone, admin included. Every prior milestone (M1–M6) landed via local `git merge --ff-only` + direct `git push origin dev`; that pattern stops working as of this milestone. This spec's own DoD updates had to go through a real PR into `dev` to land — the first one in this repo's history — effectively starting M7's PR discipline immediately rather than waiting for M7 to formally kick it off. Not a mistake; a direct, immediate consequence of the branch-protection decision this milestone made.
