@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - main
-      # TEMPORARY (M6 bootstrap only): workflow_dispatch can't target a workflow
-      # GitHub has never seen run anywhere. This entry exists just to get one
-      # real push-triggered run recorded, then gets removed in a follow-up
-      # commit before M6 closes — this workflow should only ever fire for
-      # real on a push to main.
-      - dev
   workflow_dispatch:
 
 jobs:
