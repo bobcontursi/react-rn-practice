@@ -33,6 +33,6 @@ A Contact page (`web/src/pages/Contact.tsx`, a `/contact` route, and a nav link)
 - [x] Review comment left on the email line (fixed as a `mailto:` link in `597d9b5`) and resolved.
 - [x] PR #2 merged into `dev` (merge commit `5c731cb`).
 - [x] PR #3 (`dev` → `main`) merged as `ecf8f3e`; `deploy-prod.yml` ran successfully and the production site serves `/contact`.
-- [x] Release tagged `v0.7.0` on `main`.
+- [x] Release tagged `v0.1.0` on `main`.
 - [x] `flags-server/flags.json` change never committed.
 - [x] Reference doc of the full workflow written for later reuse: `docs/git-workflow-reference.md`.
