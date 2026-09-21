@@ -1,6 +1,6 @@
 # Git & GitHub Workflow Reference
 
-The branch → PR → review → merge → promote → tag workflow for this repo, as rehearsed in Milestone 7 (PRs #2 and #3, tag `v0.7.0`). Every command below was run for real during M7.
+The branch → PR → review → merge → promote → tag workflow for this repo, as rehearsed in Milestone 7 (PRs #2 and #3, tag `v0.1.0`). Every command below was run for real during M7.
 
 Inside Claude Code, prefix each shell command with `!` (for example `! git status`). In a normal terminal, leave the `!` off. A command typed without the prefix is sent to Claude as chat and does not run.
 
